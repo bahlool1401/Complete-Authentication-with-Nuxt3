@@ -12,6 +12,19 @@
                         {{ variant==='LOGIN' ? 'Sign In' : 'Register' }}
                     </Button>
                  </div>
+                 <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="bg-white px-2 text-gray-500">Or Continue with</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex gap-2">
+                        <AuthSocialButton/>
+                    </div>
+                 </div>
             </form>
         </div>
     </div>
