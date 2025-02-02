@@ -22,9 +22,20 @@
                         </div>
                     </div>
                     <div class="mt-6 flex gap-2">
-                        <AuthSocialButton/>
+                        <AuthSocialButton icon="bi:github"/>
+                        <AuthSocialButton icon="bi:google"/>
                     </div>
                  </div>
+
+                 <div class="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
+                    <div @click="toggleVariant">
+                        {{ variant==='REGISTER' ? 'New to Messenger?' : 'Already have an account?' }}
+                    </div>
+                    <div @click="toggleVariant" class="underline cursor-pointer ">
+                        {{ variant==='LOGIN' ? 'Create an account?' : 'Login' }}
+                    </div>
+                 </div>
+
             </form>
         </div>
     </div>
@@ -38,4 +49,12 @@
 
     type VARIANT = 'LOGIN' | 'REGISTER'
     const variant = ref<VARIANT>('REGISTER')
+
+    const toggleVariant = ()=>{
+        if(variant.value==='REGISTER'){
+            variant.value==='LOGIN'
+        }else{
+            variant.value==='REGISTER'
+        }
+    }
 </script>
