@@ -8,7 +8,7 @@
                  <Input :disabled="isLoading" required id="password" label="Password" v-model="password" type="password"/>
 
                  <div>
-                    <Button :disabled="isLoading" fullWidth type="submit">
+                    <Button :disabled="isLoading" fullWidth type="submit" outline>
                         {{ variant==='LOGIN' ? 'Sign In' : 'Register' }}
                     </Button>
                  </div>
@@ -37,6 +37,7 @@
                  </div>
 
             </form>
+            variant : {{ variant }}
         </div>
     </div>
 </template>
@@ -47,14 +48,14 @@
     const email = ref('')
     const password = ref('')
 
-    type VARIANT = 'LOGIN' | 'REGISTER'
+    type VARIANT = 'LOGIN' | 'REGISTER';
     const variant = ref<VARIANT>('REGISTER')
 
     const toggleVariant = ()=>{
         if(variant.value==='REGISTER'){
-            variant.value==='LOGIN'
+            variant.value='LOGIN';
         }else{
-            variant.value==='REGISTER'
+            variant.value='REGISTER';
         }
     }
 </script>
