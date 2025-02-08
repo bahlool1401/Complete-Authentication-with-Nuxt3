@@ -29,6 +29,9 @@ model Account{
   userId String @db.ObjectId
   type String 
   provider String
+  providerAccountId String
+  refresh_token String? @db.String
+  access_token String? @db.String
   email String? @unique
   emailVerified DateTime
   image String?
