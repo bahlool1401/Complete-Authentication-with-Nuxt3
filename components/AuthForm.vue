@@ -29,7 +29,7 @@
 
                  <div class="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
                     <div @click="toggleVariant">
-                        {{ variant==='REGISTER' ? 'New to Messenger?' : 'Already have an account?' }}
+                        {{ variant==='REGISTER' ? 'Already have an account?' : 'New to Messenger?' }}
                     </div>
                     <div @click="toggleVariant" class="underline cursor-pointer ">
                         {{ variant==='LOGIN' ? 'Create an account?' : 'Login' }}
@@ -43,10 +43,10 @@
 </template>
 
 <script setup lang="ts">
-    const isLoading = ref(false)
-    const name = ref('')
-    const email = ref('')
-    const password = ref('')
+    const isLoading = ref(false);
+    const name = ref('');
+    const email = ref('');
+    const password = ref('');
 
     type VARIANT = 'LOGIN' | 'REGISTER';
     const variant = ref<VARIANT>('REGISTER')
