@@ -1,6 +1,13 @@
 import { NuxtAuthHandler } from "#auth";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client/extension";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+
+// @ts-ignore
+import bcrypt from 'bcrypt'
+
+const prisma = new PrismaClient()
 
 export default NuxtAuthHandler({
   // your authentication configuration here!
@@ -32,7 +39,13 @@ export default NuxtAuthHandler({
             statusMessage:'Missing Info'
           })
         }
-      }
+
+        const user = await prisma.user.findUnique({
+          where:{
+            email:credentials.email
+          }
+        })
+      } 
     }),
   ],
 });
