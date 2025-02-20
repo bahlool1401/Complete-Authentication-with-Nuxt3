@@ -5,13 +5,14 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
 // @ts-ignore
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export default NuxtAuthHandler({
   // your authentication configuration here!
-
+  adapter:PrismaAdapter(prisma),
+  
   secret: "your-secret-here",
   providers: [
     // @ts-expect-error Use .default here for it to work during SSR.
@@ -32,20 +33,48 @@ export default NuxtAuthHandler({
         email: { label: "email", type: "email" },
         password: { label: "password", type: "password" },
       },
-      async authorize(credentials:any){
-        if(credentials?.email || credentials?.password){
+      async authorize(credentials: any) {
+        if (credentials?.email || credentials?.password) {
           throw createError({
-            statusCode:500,
-            statusMessage:'Missing Info'
-          })
+            statusCode: 500,
+            statusMessage: "Missing Info",
+          });
         }
 
         const user = await prisma.user.findUnique({
-          where:{
-            email:credentials.email
-          }
-        })
-      } 
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user || !user.hashedPassword) {
+          throw createError({
+            statusCode: 401,
+            statusMessage: "Invalid Credentials",
+          });
+        }
+
+        const createPassword = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        );
+
+        if (!createPassword) {
+          throw createError({
+            statusCode: 401,
+            statusMessage: "Invalid Credentials",
+          });
+        }
+        return user;
+      },
     }),
   ],
+
+  debug: process.env.NODE_ENV === "development",
+  pages: {
+    signIn: "/",
+  },
+  session: {
+    strategy: "jwt",
+  },
 });
