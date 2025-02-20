@@ -1,8 +1,9 @@
+import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import { NuxtAuthHandler } from "#auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client/extension";
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
 
 // @ts-ignore
 import bcrypt from "bcrypt";
@@ -12,7 +13,7 @@ const prisma = new PrismaClient();
 export default NuxtAuthHandler({
   // your authentication configuration here!
   adapter:PrismaAdapter(prisma),
-  
+
   secret: "your-secret-here",
   providers: [
     // @ts-expect-error Use .default here for it to work during SSR.
