@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@sidebase/nuxt-auth'
   ],
+  auth:{
+    baseURL:`http://localhost:${process.env.PORT || 3000}`
+  },
 
   runtimeConfig:{
     authSecret:'',
