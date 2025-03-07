@@ -3,19 +3,25 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-const { PrismaClient } = require('@prisma/client')
 
-const prisma = new PrismaClient()
+// const { PrismaClient } = require('@prisma/client')
+// const prisma = new PrismaClient()
+
+
+
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "mongodb"
+}
 
 generator client {
   provider = "prisma-client-js"
-  output   = "node_modules/.prisma/client"
+  // output   = "node_modules/.prisma/client"
 }
 
-datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
-}
+
+
+
 
 model User {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId

@@ -1,9 +1,12 @@
+import { PrismaClient } from "@prisma/client/extension";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { NuxtAuthHandler } from "#auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client/extension";
+
+// const { PrismaClient } = require('@prisma/client')
+// const prisma = new PrismaClient()
 
 // @ts-ignore
 import bcrypt from "bcrypt";
